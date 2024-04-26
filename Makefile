@@ -4,7 +4,7 @@ CFLAGS	= -Wextra -Wall -Werror -g
 HEADER = -Iinclude
 LIB	= lib/Libft/libft.a
 
-FILES = pipex utils
+FILES = exec utils main
 
 SRC_DIR = src/
 OBJ_DIR = obj/

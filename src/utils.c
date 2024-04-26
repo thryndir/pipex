@@ -6,7 +6,7 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 16:14:25 by lgalloux          #+#    #+#             */
-/*   Updated: 2024/04/24 23:27:49 by lgalloux         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:32:15 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,13 @@ void	double_array_free(char **strs)
 char	**search_in_env(char **env)
 {
 	int	i;
-	int	cpt;
 	char	**path;
 	char	*tmp;
 
 	i = 0;
-	cpt = 0;
-	while (cpt != 2)
-	{
-		if (ft_strnstr(env[i], "PATH=", ft_strlen(env[i])))
-			cpt++;
+	while (ft_strncmp(env[i], "PATH=", 5) != 0)
 		i++;
-	}
-	path = ft_split(env[i - 1], ':');
+	path = ft_split(env[i], ':');
 	if (path == NULL)
 		return (NULL);
 	tmp = ft_strtrim(path[0], "PATH=");
