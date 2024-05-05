@@ -6,7 +6,7 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:29:17 by lgalloux          #+#    #+#             */
-/*   Updated: 2024/04/19 20:25:05 by lgalloux         ###   ########.fr       */
+/*   Updated: 2024/04/29 18:47:06 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ char	*ft_strjoin(const char *str1, const char *str2)
 		return (NULL);
 	ft_strlcpy(result, str1, str1_len + 1);
 	ft_strlcat(result, str2, strs_len + 1);
-	// free((void *)str1);
 	return (result);
 }
 

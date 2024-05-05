@@ -4,7 +4,7 @@ CFLAGS	= -Wextra -Wall -Werror -g
 HEADER = -Iinclude
 LIB	= lib/Libft/libft.a
 
-FILES = exec utils main
+FILES = exec utils main verif
 
 SRC_DIR = src/
 OBJ_DIR = obj/

@@ -6,7 +6,7 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 16:14:25 by lgalloux          #+#    #+#             */
-/*   Updated: 2024/04/26 15:32:15 by lgalloux         ###   ########.fr       */
+/*   Updated: 2024/05/05 00:58:55 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 char	*this_is_the_path(char **p_path, char **cmd)
 {
 	char	*path;
-	char *tmp;
+	char	*tmp;
 	int		i;
 
 	i = 0;
 	if (access(cmd[0], X_OK) == 0)
-		return (cmd[0]);
+		return (ft_strdup(cmd[0]));
 	while (p_path[i])
 	{
 		tmp = ft_strjoin("/", cmd[0]);
@@ -55,7 +55,7 @@ void	double_array_free(char **strs)
 
 char	**search_in_env(char **env)
 {
-	int	i;
+	int		i;
 	char	**path;
 	char	*tmp;
 
@@ -75,22 +75,35 @@ char	**search_in_env(char **env)
 
 void	free_all(t_pipex *pipex, int which)
 {
-	if (which >= 1)
-		double_array_free(pipex->p_path);
 	if (which >= 2)
-		double_array_free(pipex->cmd_0);
+		double_array_free(pipex->p_path);
 	if (which >= 3)
-		double_array_free(pipex->cmd_1);
+		double_array_free(pipex->cmd_0);
 	if (which >= 4)
-		free(pipex->path_0);
+		double_array_free(pipex->cmd_1);
 	if (which >= 5)
+		free(pipex->path_0);
+	if (which >= 6)
 		free(pipex->path_1);
+	if (which >= 7)
+	{
+		close(pipex->fds[0]);
+		close(pipex->fds[1]);
+	}
 }
 
-void	ft_error(char *message, t_pipex *pipex, int	which)
+void	ft_error(char *message, t_pipex *pipex, int which)
 {
-	if (which >= 0)
+	if (which >= 1)
 		ft_putstr_fd(message, 2);
-	free_all(pipex, which);
-	exit(EXIT_FAILURE);
+	if (which < 0)
+	{
+		free_all(pipex, which *= -1);
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		free_all(pipex, which);
+		exit(EXIT_SUCCESS);
+	}
 }

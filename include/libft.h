@@ -6,7 +6,7 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:59:46 by lgalloux          #+#    #+#             */
-/*   Updated: 2024/04/18 20:28:59 by lgalloux         ###   ########.fr       */
+/*   Updated: 2024/04/29 18:42:30 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -358,17 +358,17 @@ int				ft_memcmp(const void *s1, const void *s2, size_t n);
 void			*ft_memchr(const void *ptr, int c, size_t n);
 
 /**
- * @brief Locates the first occurrence of the null-terminated string `needle`
- * in the string `haystack`, where not more than `len` characters are searched.
+ * @brief Locates the first occurrence of the null-terminated string `little`
+ * in the string `big`, where not more than `len` characters are searched.
  * Characters that appear after a ‘\0’ character are not searched.
- * @param str The string to be searched.
- * @param to_find The string to search.
+ * @param big The string to be searched.
+ * @param little The string to search.
  * @param len The size of the search.
- * @return If `needle` is an empty string, `haystack` is returned; if `needle` occurs
- * nowhere in `haystack`, `NULL` is returned; otherwise a pointer to the first
- * character of the first occurrence of `needle` is returned.
+ * @return If `little` is an empty string, `big` is returned; if `little` occurs
+ * nowhere in `big`, `NULL` is returned; otherwise a pointer to the first
+ * character of the first occurrence of `little` is returned.
  */
-char			*ft_strnstr(const char *haystack, const char *needle, size_t len);
+char			*ft_strnstr(const char *big, const char *little, size_t len);
 
 /**
  * @brief Allocates (with malloc(3)) and returns a copy of `str`.
