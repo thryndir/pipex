@@ -6,7 +6,7 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:59:46 by lgalloux          #+#    #+#             */
-/*   Updated: 2024/04/29 18:42:30 by lgalloux         ###   ########.fr       */
+/*   Updated: 2024/05/12 00:45:21 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,55 +169,75 @@ char			*ft_end_of_line(char *str, char *buffer);
 /******************************************************************************/
 
 /**
- * @brief print character in the str
+ * @brief print character in the fd
  * 
- * @param str an 'char *' when we have '%' the next charactere 
+ * @param format an 'char *' when we have '%' the next charactere 
  * call the other params
+ * 
+ * @param fd precise in which file descriptor you want to write
+ * 
  * @param ... number of variables that vary
  * @return int the numbers of the character who are printed
  */
-int				ft_printf(const char *str, ...);
+int				ft_dprintf(int fd, const char *format, ...);
+
+/**
+ * @brief print the characters sent by format in the fd 1
+ * @param ... number of variables that vary
+ * @return int the numbers of the character who are printed
+ */
+int				ft_printf(const char *format, ...);
 
 /**
  * @brief print an int and give his length
  * 
+ * @param fd precise in which file descriptor you want to write
+ * 
  * @param nb number who need to be printed
  * @return int the number of caractere who are printed
  */
-int				ft_printnbr(int nb);
+int				ft_printnbr(int nb, int fd);
 
 /**
  * @brief print an int and give his length in base 'base'
+ * 
+ * @param fd precise in which file descriptor you want to write
  * 
  * @param base an number base
  * @param nb number who need to be printed in base 'base'
  * @return int the number of caractere who are printed
  */
-int				ft_printunbr_base(unsigned int nb, char *base);
+int				ft_printunbr_base(unsigned int nb, int fd, char *base);
 
 /**
  * @brief print an pointer address and give his length in base 'base'
  * 
+ * @param fd precise in which file descriptor you want to write
+ * 
  * @param address a pointer
  * @return int the number of caracter in the address
  */
-int				ft_printptr(void *address);
+int				ft_printptr(void *address, int fd);
 
 /**
  * @brief print a char and return 1
  * 
+ * @param fd precise in which file descriptor you want to write
+ * 
  * @param c the char who are printed
  * @return int 1
  */
-int				ft_printchar(char c);
+int				ft_printchar(char c, int fd);
 
 /**
  * @brief print an str and return is length
  * 
+ * @param fd precise in which file descriptor you want to write
+ * 
  * @param str the str who are printed
  * @return int the lenght of the str
  */
-int				ft_printstr(char *str);
+int				ft_printstr(char *str, int fd);
 
 /******************************************************************************/
 /*                                                                            */

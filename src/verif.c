@@ -6,7 +6,7 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 00:33:39 by lgalloux          #+#    #+#             */
-/*   Updated: 2024/05/11 22:32:09 by lgalloux         ###   ########.fr       */
+/*   Updated: 2024/05/12 01:42:39 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,15 @@ void	ft_error(char *message, t_pipex *pipex, int which, int status)
 
 void	return_code(t_pipex *pipex)
 {
-	if (WIFEXITED(pipex->status_0) && WEXITSTATUS(pipex->status_0) == 127)
-		ft_printf("zsh: command not found: %s\n", pipex->cmd_0[0]);
-	if (WIFEXITED(pipex->status_1))
+	if (WIFEXITED(pipex->status))
 	{
-		if (WEXITSTATUS(pipex->status_1) == 127)
+		if (WEXITSTATUS(pipex->status) == 127)
 		{
 			ft_printf("zsh: command not found: %s\n", pipex->cmd_1[0]);
-			ft_error("", pipex, 6, WEXITSTATUS(pipex->status_1));
+			ft_error("", pipex, 6, WEXITSTATUS(pipex->status));
 		}
-		ft_error(strerror(WEXITSTATUS(pipex->status_1)), pipex,
-			6, WEXITSTATUS(pipex->status_1));
+		ft_error(strerror(WEXITSTATUS(pipex->status)), pipex,
+			6, WEXITSTATUS(pipex->status));
 	}
 }
 

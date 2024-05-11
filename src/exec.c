@@ -6,7 +6,7 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:48:48 by lgalloux          #+#    #+#             */
-/*   Updated: 2024/05/11 21:41:21 by lgalloux         ###   ########.fr       */
+/*   Updated: 2024/05/12 01:41:49 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void	parent(char **argv, char **env, t_pipex pipex)
 	}
 	close(pipex.fds[0]);
 	close(pipex.fds[1]);
-	waitpid(pid_0, &pipex.status_0, 0);
-	waitpid(pid_1, &pipex.status_1, 0);
-	if (WIFEXITED(pipex.status_0) || WIFEXITED(pipex.status_1))
+	waitpid(pid_0, NULL, 0);
+	waitpid(pid_1, &pipex.status, 0);
+	if (WEXITSTATUS(pipex.status) != 0)
 		return_code(&pipex);
 }
 
@@ -66,6 +66,7 @@ void	child(char **argv, t_pipex pipex, char **env)
 	close(pipex.fds[1]);
 	if (pipex.path_0 != NULL)
 		execve(pipex.path_0, pipex.cmd_0, env);
+	ft_dprintf(2, "zsh: command not found: %s\n", pipex.cmd_0[0]);
 	free_all(&pipex, 6);
 	exit(127);
 }

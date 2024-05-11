@@ -6,7 +6,7 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 16:38:31 by lgalloux          #+#    #+#             */
-/*   Updated: 2024/05/08 00:16:37 by lgalloux         ###   ########.fr       */
+/*   Updated: 2024/05/12 01:38:00 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ typedef struct s_pipex
 	int		fds[2];
 	int		fd_1;
 	int		fd_2;
-	int		status_0;
-	int		status_1;
+	int		status;
 }	t_pipex;
 
 char	**search_in_env(char **env);
