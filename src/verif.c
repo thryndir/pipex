@@ -6,7 +6,7 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 00:33:39 by lgalloux          #+#    #+#             */
-/*   Updated: 2024/05/08 01:04:53 by lgalloux         ###   ########.fr       */
+/*   Updated: 2024/05/11 22:32:09 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	return_code(t_pipex *pipex)
 		if (WEXITSTATUS(pipex->status_1) == 127)
 		{
 			ft_printf("zsh: command not found: %s\n", pipex->cmd_1[0]);
-			ft_error("", pipex, 7, WEXITSTATUS(pipex->status_1));
+			ft_error("", pipex, 6, WEXITSTATUS(pipex->status_1));
 		}
-		ft_error(strerror(pipex->status_1), pipex,
-			-7, WEXITSTATUS(pipex->status_1));
+		ft_error(strerror(WEXITSTATUS(pipex->status_1)), pipex,
+			6, WEXITSTATUS(pipex->status_1));
 	}
 }
 

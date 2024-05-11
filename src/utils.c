@@ -6,7 +6,7 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 16:14:25 by lgalloux          #+#    #+#             */
-/*   Updated: 2024/05/06 00:39:45 by lgalloux         ###   ########.fr       */
+/*   Updated: 2024/05/11 22:19:27 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*this_is_the_path(char **p_path, char **cmd)
 	int		i;
 
 	i = 0;
+	if (cmd[0] == NULL)
+		return (NULL);
 	if (access(cmd[0], X_OK) == 0)
 		return (ft_strdup(cmd[0]));
 	while (p_path[i])

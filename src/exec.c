@@ -6,7 +6,7 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:48:48 by lgalloux          #+#    #+#             */
-/*   Updated: 2024/05/08 00:46:59 by lgalloux         ###   ########.fr       */
+/*   Updated: 2024/05/11 21:41:21 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,9 @@ void	child(char **argv, t_pipex pipex, char **env)
 	dup2(pipex.fds[1], 1);
 	close(pipex.fds[0]);
 	close(pipex.fds[1]);
-	execve(pipex.path_0, pipex.cmd_0, env);
+	if (pipex.path_0 != NULL)
+		execve(pipex.path_0, pipex.cmd_0, env);
+	free_all(&pipex, 6);
 	exit(127);
 }
 
@@ -76,7 +78,9 @@ void	child_2(char **argv, t_pipex pipex, char **env)
 	dup2(pipex.fds[0], 0);
 	close(pipex.fds[1]);
 	close(pipex.fds[0]);
-	execve(pipex.path_1, pipex.cmd_1, env);
+	if (pipex.path_1 != NULL)
+		execve(pipex.path_1, pipex.cmd_1, env);
+	free_all(&pipex, 6);
 	exit(127);
 }
 
