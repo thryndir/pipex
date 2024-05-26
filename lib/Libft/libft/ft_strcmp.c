@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 16:58:08 by lgalloux          #+#    #+#             */
-/*   Updated: 2024/05/16 05:23:11 by lgalloux         ###   ########.fr       */
+/*   Created: 2024/05/26 00:25:09 by lgalloux          #+#    #+#             */
+/*   Updated: 2024/05/26 00:27:16 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(int data)
+int	ft_strcmp(const char *first, const char *second)
 {
-	t_list	*stack;
+	size_t	i;
 
-	stack = malloc(sizeof(t_list));
-	if (!stack)
-		return (NULL);
-	stack->data = data;
-	stack->next = NULL;
-	return (stack);
+	i = 0;
+	while (first[i] == second[i] && first[i] != '\0')
+        i++;
+	return ((unsigned char)(first[i]) - (unsigned char)(second[i]));
 }

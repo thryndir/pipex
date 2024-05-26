@@ -6,7 +6,7 @@
 #    By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/29 18:19:52 by lgalloux          #+#    #+#              #
-#    Updated: 2024/04/01 20:25:58 by lgalloux         ###   ########.fr        #
+#    Updated: 2024/05/26 00:37:44 by lgalloux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ ft_substr ft_strjoin ft_strtrim ft_split ft_itoa\
 ft_strmapi ft_striteri ft_putchar_fd ft_putstr_fd\
 ft_putendl_fd ft_putnbr_fd ft_lstsize ft_lstlast\
 ft_lstnew ft_lstadd_front ft_lstadd_back ft_atoull\
-ft_lstdelone ft_lstclear ft_lstiter ft_lstmap\
+ft_lstdelone ft_lstclear ft_lstiter ft_lstmap ft_putnbr\
+ft_is_word_in ft_isspace ft_strcmp\
 
 PF_FILES = ft_gestchar ft_gesthexa ft_gestint ft_printf
 

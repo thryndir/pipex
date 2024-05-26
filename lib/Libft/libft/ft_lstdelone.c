@@ -6,13 +6,13 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 16:44:15 by lgalloux          #+#    #+#             */
-/*   Updated: 2024/02/28 16:20:43 by lgalloux         ###   ########.fr       */
+/*   Updated: 2024/05/16 05:34:04 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdelone(t_stack *lst, int (*del)(int))
+void	ft_lstdelone(t_list *lst, int (*del)(int))
 {
 	del(lst->data);
 	free(lst);

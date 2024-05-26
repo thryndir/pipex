@@ -6,7 +6,7 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:59:46 by lgalloux          #+#    #+#             */
-/*   Updated: 2024/05/12 00:45:21 by lgalloux         ###   ########.fr       */
+/*   Updated: 2024/05/26 00:24:23 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,11 @@
 /*                                                                            */
 /******************************************************************************/
 
-typedef struct s_stack
+typedef struct s_list
 {
 	int				data;
-	struct s_stack	*next;
-	int				index;
-	int				checked;
-}	t_stack;
+	struct s_list	*next;
+}	t_list;
 
 /******************************************************************************/
 /*                                                                            */
@@ -53,6 +51,14 @@ typedef struct s_stack
 /* CType                                                                      */
 /*                                                                            */
 /******************************************************************************/
+
+/**
+ * @brief Tells wheter or not if `c` is a space
+ * 
+ * @param c the char we are comparing
+ * @return int return 1 if `c` is a space, 0 in the other case
+ */
+int 			ft_isspace(char c);
 
 /**
  * @brief Tells whether or not `c` is a letter.
@@ -253,6 +259,25 @@ int				ft_printstr(char *str, int fd);
 size_t			ft_strlen(const char *str);
 
 /**
+ * @brief Tells wheter or not if `word` is in `str`
+ * 
+ * @param str the string where we are searching
+ * @param word the word we are searching in the string
+ * @param len the len of the word
+ * @return int return 1 if the word is in str, 0 in the other case
+ */
+int				ft_is_word_in(const char *str, const char *word, int len);
+
+/**
+ * @brief Compares with the lexical order the `n` first characters of `s1`
+ * and `s2`.
+ * @param s1 A string.
+ * @param s2 A string.
+ * @return The lexical order of the two string.
+ */
+int				ft_strcmp(const char *s1, const char *s2);
+
+/**
  * @brief Sets `n` bytes of `s` to `c`.
  * @param s A pointer to a memory area.
  * @param c A byte.
@@ -379,11 +404,11 @@ void			*ft_memchr(const void *ptr, int c, size_t n);
 
 /**
  * @brief Locates the first occurrence of the null-terminated string `little`
- * in the string `big`, where not more than `len` characters are searched.
- * Characters that appear after a ‘\0’ character are not searched.
- * @param big The string to be searched.
- * @param little The string to search.
- * @param len The size of the search.
+ * in the string `big`, where no more than `len` characters are searched.
+ * Characters that appear after a `\0` are not searched.
+ * @param big The string where we are searching.
+ * @param little The searched string.
+ * @param len The size of the search in `big`.
  * @return If `little` is an empty string, `big` is returned; if `little` occurs
  * nowhere in `big`, `NULL` is returned; otherwise a pointer to the first
  * character of the first occurrence of `little` is returned.
@@ -552,11 +577,17 @@ void			ft_putendl_fd(char *str, int fd);
 void			ft_putnbr_base_fd(size_t n, char *base, int fd);
 
 /**
- * @brief Outputs the signed integer `n` to the given file descriptor.
+ * @brief Outputs the signed integer `nbr` to the given file descriptor.
  * @param n The integer to output.
  * @param fd The file descriptor on which to write.
  */
-void			ft_putnbr_fd(signed int n, int fd);
+void			ft_putnbr_fd(int nbr, int fd);
+
+/**
+ * @brief Outputs the integer `nbr` to the stamdard output.
+ * @param nbr The integer to output.
+ */
+void			ft_putnbr(int nbr);
 
 /******************************************************************************/
 /*                                                                            */
@@ -571,35 +602,35 @@ void			ft_putnbr_fd(signed int n, int fd);
  * @param data The content to create the node with.
  * @return The new node.
  */
-t_stack			*ft_lstnew(int data);
+t_list			*ft_lstnew(int data);
 
 /**
  * @brief Adds the node `new` at the beginning of `list`.
  * @param list The address of a pointer to the first link of a list.
  * @param new The address of a pointer to the node to be added to the list.
  */
-void			ft_lstadd_front(t_stack **lst, t_stack *new);
+void			ft_lstadd_front(t_list **lst, t_list *new);
 
 /**
  * @brief Counts the number of nodes in a list.
  * @param list The beginning of the list.
  * @return The length of the list.
  */
-int				ft_lstsize(t_stack *list);
+int				ft_lstsize(t_list *list);
 
 /**
  * @brief Returns the last node of the list.
  * @param list The beginning of the list.
  * @return Last node of the list.
  */
-t_stack			*ft_lstlast(t_stack *list);
+t_list			*ft_lstlast(t_list *list);
 
 /**
  * @brief Adds the node `new` at the end of the list.
  * @param list The address of a pointer to the first link of a list.
  * @param new The address of a pointer to the node to be added to the list.
  */
-void			ft_lstadd_back(t_stack **list, t_stack *new);
+void			ft_lstadd_back(t_list **list, t_list *new);
 
 /**
  * @brief Takes as a parameter a node and frees the memory of the node’s content
@@ -608,7 +639,7 @@ void			ft_lstadd_back(t_stack **list, t_stack *new);
  * @param list The node to free.
  * @param del_fun The address of the function used to delete the content.
  */
-void			ft_lstdelone(t_stack *lst, int (*del)(int));
+void			ft_lstdelone(t_list *lst, int (*del)(int));
 
 /**
  * @brief Deletes and frees the given node and every successor of that node,
@@ -618,7 +649,7 @@ void			ft_lstdelone(t_stack *lst, int (*del)(int));
  * @param del_fun The address of the function used to delete the content of the
  * node.
  */
-void			ft_lstclear(t_stack **lst, int (*del)(int));
+void			ft_lstclear(t_list **lst, int (*del)(int));
 
 /**
  * @brief Iterates the list `list` and applies the function `f` on the content
@@ -626,7 +657,7 @@ void			ft_lstclear(t_stack **lst, int (*del)(int));
  * @param list The address of a pointer to a node.
  * @param f The address of the function used to iterate on the list.
  */
-void			ft_lstiter(t_stack *lst, int (*f)(int));
+void			ft_lstiter(t_list *lst, void (*f)(int));
 
 /**
  * @brief Iterates the list `list` and applies the function `f` on the content of
@@ -639,7 +670,7 @@ void			ft_lstiter(t_stack *lst, int (*f)(int));
  * node if needed.
  * @return The new list or `NULL` if the allocation fail.
  */
-t_stack			*ft_lstmap(t_stack *lst, int (*f)(int), int (*del)(int));
+t_list			*ft_lstmap(t_list *lst, int (*f)(int), int (*del)(int));
 
 /******************************************************************************/
 /*                                                                            */
@@ -655,10 +686,10 @@ t_stack			*ft_lstmap(t_stack *lst, int (*f)(int), int (*del)(int));
 void			ft_freestr(char **lst);
 
 /**
- * @brief this fuction will free every node of a t_stack type
+ * @brief this fuction will free every node of a t_list type
  * 
  * @param lst the list which will be freed
  */
-void			ft_free_llist(t_stack **lst);
+void			ft_free_llist(t_list **lst);
 
 #endif

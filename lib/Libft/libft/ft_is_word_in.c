@@ -1,23 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   ft_is_word_in.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 17:27:29 by lgalloux          #+#    #+#             */
-/*   Updated: 2024/05/16 05:25:55 by lgalloux         ###   ########.fr       */
+/*   Created: 2024/05/22 23:36:10 by lgalloux          #+#    #+#             */
+/*   Updated: 2024/05/25 23:59:07 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(int))
+int	ft_is_word_in(const char *str, const char *word, int len)
 {
-	while (lst)
+	int	i;
+	int	j;
+
+	i = 0;
+	if (word == NULL)
+		return (0);
+	while (str[i])
 	{
-		f(lst->data);
-		write(1, "\n", 2);
-		lst = lst->next;
+		j = 0;
+		while (str[i + j] == word[j] && word[j])
+		{
+			if (j == len - 1 && (str[i + j + 1] == '\0' || ft_isspace(str[i + j + 1])))
+				return (1);
+			j++;
+		}
+		i++;
 	}
+	return (0);
 }
+
+// int	main(void)
+// {
+// 	printf("%d", ft_is_word_in("noixdenoixco gga qgqq", "noix", 4));
+// 	return (0);
+// }

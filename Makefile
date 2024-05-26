@@ -4,10 +4,11 @@ CFLAGS	= -Wextra -Wall -Werror -g
 HEADER = -Iinclude
 LIB	= lib/Libft/libft.a
 
-FILES = exec utils main verif
+FILES = main init init_exec exec utils error
 
 SRC_DIR = src/
 OBJ_DIR = obj/
+BONUS_DIR = bonus/
 
 SRCS	= $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
 OBJS	= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))

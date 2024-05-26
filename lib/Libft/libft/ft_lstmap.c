@@ -6,16 +6,16 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:45:00 by lgalloux          #+#    #+#             */
-/*   Updated: 2024/02/28 16:20:14 by lgalloux         ###   ########.fr       */
+/*   Updated: 2024/05/16 05:23:23 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_stack	*ft_lstmap(t_stack *lst, int (*f)(int), int (*del)(int))
+t_list	*ft_lstmap(t_list *lst, int (*f)(int), int (*del)(int))
 {
-	t_stack	*result;
-	t_stack	*node;
+	t_list	*result;
+	t_list	*node;
 
 	if (!lst || !f || !del)
 		return (NULL);

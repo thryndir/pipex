@@ -6,40 +6,29 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 16:14:25 by lgalloux          #+#    #+#             */
-/*   Updated: 2024/05/11 22:19:27 by lgalloux         ###   ########.fr       */
+/*   Updated: 2024/05/26 00:32:27 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "libft.h"
 
-char	*this_is_the_path(char **p_path, char **cmd)
+int	read_or_write(char *file, int read_or_write, t_pipex pipex)
 {
-	char	*path;
-	char	*tmp;
-	int		i;
+	int	fd;
+	int	flag;
 
-	i = 0;
-	if (cmd[0] == NULL)
-		return (NULL);
-	if (access(cmd[0], X_OK) == 0)
-		return (ft_strdup(cmd[0]));
-	while (p_path[i])
-	{
-		tmp = ft_strjoin("/", cmd[0]);
-		if (tmp == NULL)
-			return (NULL);
-		path = ft_strjoin(p_path[i], tmp);
-		if (path == NULL)
-			return (NULL);
-		free(tmp);
-		if (access(path, X_OK) == 0)
-			return (path);
-		else
-			free(path);
-		i++;
-	}
-	return (NULL);
+	fd = -1;
+	flag = O_TRUNC;
+	if (!ft_strcmp(pipex.infile, "/tmp/temp"))
+		flag = O_APPEND;
+	if (read_or_write == READ)
+		fd = open(file, O_RDONLY);
+	else
+		fd = open(file, O_WRONLY | O_CREAT | flag, 0644);
+	if (fd == -1)
+		ft_error("problem when opening the file: ", &pipex, FREE_LST, 1);
+	return (fd);
 }
 
 void	double_array_free(char **strs)
@@ -55,22 +44,43 @@ void	double_array_free(char **strs)
 	free(strs);
 }
 
-char	**search_in_env(char **env)
+void	close_pipe(int (*pipe_fd)[2], int cmd_nbr)
 {
-	int		i;
-	char	**path;
-	char	*tmp;
+	int	i;
 
 	i = 0;
-	while (ft_strncmp(env[i], "PATH=", 5) != 0)
+	while (i < cmd_nbr - 1)
+	{
+		close(pipe_fd[i][0]);
+		close(pipe_fd[i][1]);
 		i++;
-	path = ft_split(env[i], ':');
-	if (path == NULL)
-		return (NULL);
-	tmp = ft_strtrim(path[0], "PATH=");
-	if (tmp == NULL)
-		return (NULL);
-	free(path[0]);
-	path[0] = tmp;
-	return (path);
+	}
+}
+
+void	free_lst(t_list *lst)
+{
+	t_list	*temp;
+
+	while (lst)
+	{
+		temp = lst->next;
+		free(lst);
+		lst = temp;
+	}
+}
+
+void	free_all(t_pipex *pipex, int which)
+{
+	if (which >= 2 && pipex->p_path != NULL)
+		double_array_free(pipex->p_path);
+	if (which >= 3)
+		close_pipe(pipex->pipe_fd, pipex->cmd_nbr);
+	if (which >= 4 && pipex->pipe_fd != NULL)
+		free(pipex->pipe_fd);
+	if (which >= 5 && pipex->cmd != NULL)
+		double_array_free(pipex->cmd);
+	if (which >= 6 && pipex->path != NULL)
+		free(pipex->path);
+	if (which >= 7 && pipex->lst != NULL)
+		free_lst(pipex->lst);
 }

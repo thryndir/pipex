@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   verif.c                                            :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 00:33:39 by lgalloux          #+#    #+#             */
-/*   Updated: 2024/05/12 01:42:39 by lgalloux         ###   ########.fr       */
+/*   Updated: 2024/05/26 02:31:17 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,26 @@
 
 void	ft_error(char *message, t_pipex *pipex, int which, int status)
 {
-	if (which >= 1)
-		ft_putstr_fd(message, 2);
-	free_all(pipex, which);
+	if (which > 0 && errno != 0)
+		ft_dprintf(2, "%s%s\n", message, strerror(errno));
+	else if (which < 0)
+		ft_dprintf(2, "%s", message);
+	if (which < 0)
+		free_all(pipex, which *= -1);
+	else
+		free_all(pipex, which);
 	exit(status);
+}
+
+void	here_doc_verif(t_pipex *pipex, int argc, char **argv)
+{
+	if (!ft_strcmp(argv[1], "here_doc"))
+	{
+		if (argc < 6)
+			ft_error("wrong number of arguments\n", pipex, -WRITE_MSG, 1);
+		pipex->here_doc = 1;
+		here_doc(pipex, argv[2]);
+	}
 }
 
 void	return_code(t_pipex *pipex)
@@ -26,30 +42,19 @@ void	return_code(t_pipex *pipex)
 	if (WIFEXITED(pipex->status))
 	{
 		if (WEXITSTATUS(pipex->status) == 127)
-		{
-			ft_printf("zsh: command not found: %s\n", pipex->cmd_1[0]);
-			ft_error("", pipex, 6, WEXITSTATUS(pipex->status));
-		}
-		ft_error(strerror(WEXITSTATUS(pipex->status)), pipex,
-			6, WEXITSTATUS(pipex->status));
+			ft_error("", pipex, -FREE_LST, WEXITSTATUS(pipex->status));
+		ft_error("", pipex,
+			-FREE_LST, WEXITSTATUS(pipex->status));
 	}
 }
 
-void	free_all(t_pipex *pipex, int which)
+void	hold_on(t_list *lst, int *status)
 {
-	if (which >= 2)
-		double_array_free(pipex->p_path);
-	if (which >= 3)
-		double_array_free(pipex->cmd_0);
-	if (which >= 4)
-		double_array_free(pipex->cmd_1);
-	if (which >= 5)
-		free(pipex->path_0);
-	if (which >= 6)
-		free(pipex->path_1);
-	if (which >= 7)
+	waitpid(lst->data, status, 0);
+	lst = lst->next;
+	while (lst)
 	{
-		close(pipex->fds[0]);
-		close(pipex->fds[1]);
+		waitpid(lst->data, NULL, 0);
+		lst = lst->next;
 	}
 }
