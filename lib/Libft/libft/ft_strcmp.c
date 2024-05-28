@@ -6,7 +6,7 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 00:25:09 by lgalloux          #+#    #+#             */
-/*   Updated: 2024/05/26 00:27:16 by lgalloux         ###   ########.fr       */
+/*   Updated: 2024/05/27 21:57:44 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ int	ft_strcmp(const char *first, const char *second)
 
 	i = 0;
 	while (first[i] == second[i] && first[i] != '\0')
-        i++;
+		i++;
 	return ((unsigned char)(first[i]) - (unsigned char)(second[i]));
 }

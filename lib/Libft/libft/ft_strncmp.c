@@ -6,7 +6,7 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 12:20:54 by lgalloux          #+#    #+#             */
-/*   Updated: 2024/05/24 00:54:51 by lgalloux         ###   ########.fr       */
+/*   Updated: 2024/05/27 22:20:11 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_strncmp(const char *first, const char *second, size_t length)
 	size_t	i;
 
 	i = 0;
+	if (first == NULL || second == NULL)
+		return (0);
 	if (length == 0)
 		return (0);
 	while (first[i] == second[i] && first[i] != '\0')

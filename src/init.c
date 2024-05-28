@@ -6,7 +6,7 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 20:32:45 by lgalloux          #+#    #+#             */
-/*   Updated: 2024/05/26 01:58:54 by lgalloux         ###   ########.fr       */
+/*   Updated: 2024/05/27 22:20:52 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,9 @@ char	**search_in_env(char **env)
 
 	i = 0;
 	path = NULL;
-	while (env[i] && ft_strncmp(env[i], "PATH=", 5) != 0)
+	while (ft_strncmp(env[i], "PATH=", 5) != 0)
 		i++;
-	if (env[i])
-		path = ft_split(env[i], ':');
+	path = ft_split(env[i], ':');
 	if (path == NULL)
 		return (NULL);
 	tmp = ft_strtrim(path[0], "PATH=");

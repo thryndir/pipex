@@ -6,12 +6,12 @@
 #    By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/29 18:19:52 by lgalloux          #+#    #+#              #
-#    Updated: 2024/05/26 00:37:44 by lgalloux         ###   ########.fr        #
+#    Updated: 2024/05/27 21:20:18 by lgalloux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -rf
 HEADER = -I../../include
 NAME = libft.a

@@ -6,7 +6,7 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 18:16:31 by lgalloux          #+#    #+#             */
-/*   Updated: 2023/11/17 15:34:50 by lgalloux         ###   ########.fr       */
+/*   Updated: 2024/05/27 21:57:12 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ char	**ft_split(char const *str, char c)
 {
 	char	**strs;
 
+	if (str == NULL)
+		return (NULL);
 	strs = (char **)malloc((ft_strnbr(str, c) + 1) * sizeof(char *));
 	if (strs == NULL)
 		return (NULL);

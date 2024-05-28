@@ -6,7 +6,7 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 23:36:10 by lgalloux          #+#    #+#             */
-/*   Updated: 2024/05/25 23:59:07 by lgalloux         ###   ########.fr       */
+/*   Updated: 2024/05/27 21:53:23 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	ft_is_word_in(const char *str, const char *word, int len)
 		j = 0;
 		while (str[i + j] == word[j] && word[j])
 		{
-			if (j == len - 1 && (str[i + j + 1] == '\0' || ft_isspace(str[i + j + 1])))
+			if (j == len - 1 && (str[i + j + 1] == '\0'
+					|| ft_isspace(str[i + j + 1])))
 				return (1);
 			j++;
 		}

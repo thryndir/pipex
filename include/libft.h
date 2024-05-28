@@ -6,7 +6,7 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:59:46 by lgalloux          #+#    #+#             */
-/*   Updated: 2024/05/26 00:24:23 by lgalloux         ###   ########.fr       */
+/*   Updated: 2024/05/27 21:50:15 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct s_list
  * @param c the char we are comparing
  * @return int return 1 if `c` is a space, 0 in the other case
  */
-int 			ft_isspace(char c);
+int				ft_isspace(char c);
 
 /**
  * @brief Tells whether or not `c` is a letter.

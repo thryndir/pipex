@@ -6,7 +6,7 @@
 /*   By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 15:48:48 by lgalloux          #+#    #+#             */
-/*   Updated: 2024/05/25 23:08:52 by lgalloux         ###   ########.fr       */
+/*   Updated: 2024/05/27 22:28:02 by lgalloux         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	first_child(int current, t_pipex pipex, int (*pipe_fd)[2])
 	if (pipex.path != NULL)
 		execve(pipex.path, pipex.cmd, pipex.env);
 	ft_dprintf(2, "pipex: command not found: %s\n", pipex.cmd[0]);
-	free_all(&pipex, 6);
+	free_all(&pipex, FREE_LST);
 	exit(127);
 }
 
@@ -84,7 +84,7 @@ void	middle_child(int current, t_pipex pipex, int (*pipe_fd)[2])
 	if (pipex.path != NULL)
 		execve(pipex.path, pipex.cmd, pipex.env);
 	ft_dprintf(2, "pipex: command not found: %s\n", pipex.cmd[0]);
-	free_all(&pipex, 6);
+	free_all(&pipex, FREE_LST);
 	exit(127);
 }
 
