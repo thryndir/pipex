@@ -6,71 +6,55 @@
 #    By: lgalloux <lgalloux@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/29 18:19:52 by lgalloux          #+#    #+#              #
-#    Updated: 2024/05/27 21:20:18 by lgalloux         ###   ########.fr        #
+#    Updated: 2024/09/11 12:13:20 by lgalloux         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -rf
-HEADER = -I../../include
+HEADER = -Iinclude
 NAME = libft.a
+TNAME = test
 
-FT_FILES = ft_strlen ft_isprint ft_isalnum\
-ft_isalpha ft_isdigit ft_memset ft_isascii ft_bzero\
-ft_memcpy ft_memmove ft_strlcpy ft_strlcat ft_toupper\
-ft_tolower ft_strchr ft_strrchr ft_strncmp ft_memchr\
-ft_memcmp ft_strnstr ft_atolli ft_calloc ft_strdup\
-ft_substr ft_strjoin ft_strtrim ft_split ft_itoa\
-ft_strmapi ft_striteri ft_putchar_fd ft_putstr_fd\
-ft_putendl_fd ft_putnbr_fd ft_lstsize ft_lstlast\
-ft_lstnew ft_lstadd_front ft_lstadd_back ft_atoull\
-ft_lstdelone ft_lstclear ft_lstiter ft_lstmap ft_putnbr\
-ft_is_word_in ft_isspace ft_strcmp\
+FILES = libft/ft_strlen libft/ft_isprint libft/ft_isalnum\
+libft/ft_isalpha libft/ft_isdigit libft/ft_memset libft/ft_isascii libft/ft_bzero\
+libft/ft_memcpy libft/ft_memmove libft/ft_strlcpy libft/ft_strlcat libft/ft_toupper\
+libft/ft_tolower libft/ft_strchr libft/ft_strrchr libft/ft_strncmp libft/ft_memchr\
+libft/ft_memcmp libft/ft_strnstr libft/ft_atolli libft/ft_calloc libft/ft_strdup\
+libft/ft_substr libft/ft_strjoin libft/ft_strtrim libft/ft_split libft/ft_itoa\
+libft/ft_strmapi libft/ft_striteri libft/ft_putchar_fd libft/ft_putstr_fd\
+libft/ft_putendl_fd libft/ft_putnbr_fd libft/ft_lstsize libft/ft_lstlast\
+libft/ft_lstnew libft/ft_lstadd_front libft/ft_lstadd_back libft/ft_atoull\
+libft/ft_lstdelone libft/ft_lstclear libft/ft_lstiter libft/ft_lstmap libft/ft_putnbr\
+libft/ft_is_word_in libft/ft_isspace libft/ft_strcmp\
+printf/ft_gestchar printf/ft_gesthexa printf/ft_gestint printf/ft_printf\
+gnl/get_next_line gnl/get_next_line_utils
 
-PF_FILES = ft_gestchar ft_gesthexa ft_gestint ft_printf
-
-GNL_FILES = get_next_line get_next_line_utils
-
-PF_DIR = printf/
-GNL_DIR = gnl/
-FT_DIR = libft/
+SRC_DIR = src/
 OBJ_DIR = obj/
 
-GNL_SRCS = $(addprefix $(GNL_DIR), $(addsuffix .c, $(GNL_FILES)))
-GNL_OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(GNL_FILES)))
+SRCS = $(addsuffix .c, $(addprefix $(SRC_DIR), $(FILES)))
+OBJS = $(addsuffix .o, $(addprefix $(OBJ_DIR), $(FILES)))
 
-PF_SRCS	= $(addprefix $(PF_DIR), $(addsuffix .c, $(PF_FILES)))
-PF_OBJS	= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(PF_FILES)))
+all: $(NAME)
 
-FT_SRCS	= $(addprefix $(FT_DIR), $(addsuffix .c, $(FT_FILES)))
-FT_OBJS	= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FT_FILES)))
+$(NAME): $(OBJS)
+	ar rc $@ $^
 
-OBJS = $(GNL_OBJS) $(PF_OBJS) $(FT_OBJS)
+$(TNAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $^
 
-all: $(NAME) 
-
-$(NAME): $(OBJ_DIR) $(OBJS)
-	ar rc $(NAME) $(OBJS)
-
-$(OBJ_DIR)%.o: $(GNL_DIR)%.c
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	@mkdir -p $(@D)
 	$(CC) $(HEADER) $(CFLAGS) -o $@ -c $<
-
-$(OBJ_DIR)%.o: $(PF_DIR)%.c
-	$(CC) $(HEADER) $(CFLAGS) -o $@ -c $<
-
-$(OBJ_DIR)%.o: $(FT_DIR)%.c
-	$(CC) $(HEADER) $(CFLAGS) -o $@ -c $<
-
-$(OBJ_DIR):
-	mkdir $@
 
 clean:
 	$(RM) $(OBJ_DIR)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(TNAME)
 
 re: fclean all
 
-.PHONY: all, clean, fclean, re
+.PHONY: all clean fclean re

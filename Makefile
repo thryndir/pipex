@@ -1,14 +1,13 @@
 NAME	= pipex
 CC 	= cc
 CFLAGS	= -Wextra -Wall -Werror -g
-HEADER = -Iinclude
+HEADER = -Ilib/Libft/include -Iinclude
 LIB	= lib/Libft/libft.a
 
 FILES = main init init_exec exec utils error
 
 SRC_DIR = src/
 OBJ_DIR = obj/
-BONUS_DIR = bonus/
 
 SRCS	= $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
 OBJS	= $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
@@ -25,7 +24,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	$(CC) $(CFLAGS) $(HEADER) -o $@ -c $<
 
 $(OBJ_DIR):
-	mkdir $@
+	@mkdir -p $@
 
 clean:
 	rm -rf $(OBJ_DIR)
